@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
     public GameObject cameraTarget;
-    public Vector3 offset;
-    public float lerpSpeed = 3.0f;
+    public float positionSmoothTime = 0.2f;
+    public float sizeSmoothTime = 0.7f;
+    public float cameraTargetVelocityToSizeFactor = .6f;
+    public Vector3 cameraOffset = new Vector3(0, 0, -2f);
     private bool cameraLocked;
+    private Vector3 posMoveVelocity;
+    private float sizeMoveVelocity;
+    private float defaultCameraOrthoSize;
+    private Camera camera;
+    private Rigidbody2D cameraTargetBody;
+    private float cameraTargetAveregeVelocityMagnitude;
+
+    // circular buffer for storing velocity magnitudes - erm... funny
+    public static readonly int CircularBufferCapacity = 30;
+    private Queue<float> cameraTargetVelocityMagnitudes = new Queue<float>(CircularBufferCapacity);
 
     // Use this for initialization
     void Start()
     {
+        camera = Camera.main;
+        cameraTargetBody = cameraTarget.GetComponent<Rigidbody2D>();
+        defaultCameraOrthoSize = camera.orthographicSize;
         StartCoroutine(LockCamera(.5f));
     }
 
@@ -21,8 +35,12 @@ public class CameraController : MonoBehaviour
     {
         if (!cameraLocked)
         {
-            Vector3 camPos = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y, -10.0f) + offset;
-            this.transform.position = Vector3.Lerp(transform.position, camPos, Time.deltaTime * lerpSpeed);
+            Vector3 camPos = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y, 0) + cameraOffset;
+            this.transform.position = Vector3.SmoothDamp(transform.position, camPos, ref posMoveVelocity, positionSmoothTime);
+            this.GetCameraTargetAveregedVelocity(ref cameraTargetAveregeVelocityMagnitude);
+            float desiredOrthographicSize = defaultCameraOrthoSize + cameraTargetAveregeVelocityMagnitude * cameraTargetVelocityToSizeFactor;
+            desiredOrthographicSize = Mathf.Clamp(desiredOrthographicSize, defaultCameraOrthoSize, 2.0f);
+            camera.orthographicSize = Mathf.SmoothDamp(camera.orthographicSize, desiredOrthographicSize, ref sizeMoveVelocity, sizeSmoothTime);
         }
     }
 
@@ -31,5 +49,21 @@ public class CameraController : MonoBehaviour
         cameraLocked = true;
         yield return new WaitForSeconds(duration);
         cameraLocked = false;
+    }
+
+    private void GetCameraTargetAveregedVelocity(ref float averagedVelocity)
+    {
+        cameraTargetVelocityMagnitudes.Enqueue(cameraTargetBody.velocity.magnitude);
+        float sum = 0f;
+        foreach(float item in cameraTargetVelocityMagnitudes)
+        {
+            sum += item;
+        }
+        averagedVelocity = sum / cameraTargetVelocityMagnitudes.Count;
+
+        if(cameraTargetVelocityMagnitudes.Count > CircularBufferCapacity)
+        {
+            cameraTargetVelocityMagnitudes.Dequeue();
+        }
     }
 }
