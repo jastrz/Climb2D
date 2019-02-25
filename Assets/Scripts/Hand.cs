@@ -148,6 +148,7 @@ public class Hand : MonoBehaviour {
     {
         Rigidbody.velocity = Vector2.zero;
         Rigidbody.angularVelocity = 0;
+        
     }
 
     private void AdjustBodyConnection(float frequency)
@@ -215,12 +216,6 @@ public class Hand : MonoBehaviour {
         return false;
     }
 
-    // public void FreezePosition()
-    // {
-    //     this.SetAsKinematic();
-
-    // }
-
     public void SetAsDynamic()
     {
         this.StopRotation();
@@ -247,6 +242,7 @@ public class Hand : MonoBehaviour {
         this.transform.SetParent(body);
         this.GetComponent<Joint2D>().enabled = true;
     }
+
     public void StartRotating(Transform body, bool isContinued)
     {
         this.SetAsKinematic();

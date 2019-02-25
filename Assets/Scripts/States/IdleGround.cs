@@ -26,8 +26,6 @@ public class IdleGround : PlayerState {
 
     public override PlayerState Update()
     {
-        //this.UpdateHands();
-
         return base.Update();
     }
 
@@ -40,7 +38,6 @@ public class IdleGround : PlayerState {
 
     public override void OnStateExit()
     {
-        //this.DisableGroundPosition();
         base.OnStateExit();
     }
 
@@ -58,7 +55,6 @@ public class IdleGround : PlayerState {
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
         Rigidbody2D rigidbody = TargetController.Body.GetComponent<Rigidbody2D>();
-        //this.SetFacing(Mathf.Round(horizontalMovement));
 
         if (Mathf.Abs(horizontalMovement) > 0)
         {

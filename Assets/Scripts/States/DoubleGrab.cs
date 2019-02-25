@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DoubleGrab : PlayerState {
+
     public override string GetName()
     {
         return "Double Grab";
@@ -17,6 +18,7 @@ public class DoubleGrab : PlayerState {
 
         return base.Update();
     }
+
     public override PlayerState HandleInput()
     {
         return base.HandleInput();

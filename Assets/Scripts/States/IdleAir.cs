@@ -33,6 +33,7 @@ public class IdleAir : PlayerState {
 
         return base.Update();
     }
+
     public override PlayerState HandleInput()
     {
         return base.HandleInput();
@@ -58,9 +59,6 @@ public class IdleAir : PlayerState {
         if(previousState == StateMachine.PlayerStates.Rotating)
         {
             this.LockHands();
-            // StateMachine.PlayerStates.Rotating.rotatingHand.BodyJointSetEnabled(false);
-            // StateMachine.PlayerStates.Rotating.nonRotatingHand.SetAsKinematic();
-            // StateMachine.PlayerStates.Rotating.nonRotatingHand.BodyJointSetEnabled(false);
         }
         else if(previousState == StateMachine.PlayerStates.IdleGround || previousState == null)
         {
@@ -68,7 +66,7 @@ public class IdleAir : PlayerState {
         }
         else if(previousState == StateMachine.PlayerStates.JumpReady)
         {
-            this.ActivateBothHands();
+            this.LockHands();
         }
         else
         {
@@ -89,14 +87,13 @@ public class IdleAir : PlayerState {
 
     private void LockHands()
     {
-        //foreach(GameObject hand in TargetController.Hands.Values)
-        //{
-        //    Hand handController = hand.GetComponent<Hand>();
-        //    handController.SetAsKinematic();
-        //    handController.BodyJointSetEnabled(false);
-        //}\
-        TargetController.LeftHand.GetComponent<Hand>().SetAsKinematic();
-        TargetController.LeftHand.GetComponent<Hand>().BodyJointSetEnabled(false);
+        foreach(GameObject hand in TargetController.Hands.Values)
+        {
+            Hand handController = hand.GetComponent<Hand>();
+            handController.SetAsKinematic();
+            handController.BodyJointSetEnabled(false);
+            //handController.transform.SetParent(TargetController.Body.transform);
+        }
         handsLocked = true;
     }
 
@@ -106,11 +103,6 @@ public class IdleAir : PlayerState {
         {
             hand.transform.localPosition += TargetController.Body.GetComponent<Body>().localPositionDelta;
         }
-        // StateMachine.PlayerStates.Rotating.rotatingHand.transform.localPosition +=
-        //         TargetController.Body.GetComponent<Body>().localPositionDelta;
-
-        //     StateMachine.PlayerStates.Rotating.nonRotatingHand.transform.localPosition +=
-        //         TargetController.Body.GetComponent<Body>().localPositionDelta;
     }
 
 }

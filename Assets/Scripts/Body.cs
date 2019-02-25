@@ -13,13 +13,12 @@ public class Body : MonoBehaviour {
 
     private Vector3 lastLocalPosition;
 
-	// Use this for initialization
+
 	private void Awake () {
 		lastLocalPosition = transform.localPosition;
 	}
 	
-	// Update is called once per frame
-	private void Update () {
+	private void FixedUpdate () {
        UpdateLocalPositionDelta();
     }
 

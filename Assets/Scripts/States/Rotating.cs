@@ -58,9 +58,16 @@ public class Rotating : PlayerState
 
         if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.W))
         {
-            if (GetHand(false) == null)
+            if (BothHandsGrabbing())
             {
-                return StateMachine.PlayerStates.DoubleGrab;
+                if(BothHandsGrabbingSameObject())
+                {
+                    return StateMachine.PlayerStates.JumpReady;
+                }
+                else
+                {
+                    return StateMachine.PlayerStates.DoubleGrab;
+                }
             }
             else
             {
@@ -74,7 +81,6 @@ public class Rotating : PlayerState
 
     private void Jump(Vector3 forceToAdd)
     {
-        //var ForceToAdd = (rotatingHand.transform.position - TargetController.Body.transform.position).normalized * 12.0f;
         TargetController.Body.GetComponent<Body>().Jump(forceToAdd);
     }
 
@@ -128,5 +134,10 @@ public class Rotating : PlayerState
             }
         }
         return null;
+    }
+
+    private bool BothHandsGrabbingSameObject()
+    {
+        return TargetController.LeftHand.GetComponent<Hand>().GrabbedObject == TargetController.RightHand.GetComponent<Hand>().GrabbedObject;
     }
 }

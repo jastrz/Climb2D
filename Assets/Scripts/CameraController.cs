@@ -19,7 +19,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if (!cameraLocked)
         {
             Vector3 camPos = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y, -10.0f) + offset;

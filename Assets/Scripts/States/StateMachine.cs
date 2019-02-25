@@ -32,9 +32,6 @@ public class StateMachine : MonoBehaviour {
         }
     }
 
-    //public UnityAction OnStateChanged;
-
-
     // Use this for initialization
     private void Start () {
 
@@ -52,7 +49,6 @@ public class StateMachine : MonoBehaviour {
         {
             this.SwitchStates(nextState);
         }
-
 	}
 
     public void SwitchStates(PlayerState state)
@@ -65,12 +61,6 @@ public class StateMachine : MonoBehaviour {
             currentState.OnStateEnter();
         }
     }
-
-    //public delegate IEnumerator crFunction();
-    //public void SetPlayerCoroutine(crFunction function)
-    //{
-    //    StartCoroutine(function());
-    //}
 }
 
 public class PlayerStates

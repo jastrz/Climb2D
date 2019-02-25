@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject RightHand;
 
     public Dictionary<string, GameObject> Hands;
-	// Use this for initialization
+
 	void Awake () {
 
 		Hands = new Dictionary<string, GameObject>
@@ -19,12 +19,8 @@ public class PlayerController : MonoBehaviour {
         };
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    // returns number of grabbing hands... naming sucks i know
     public int HandleHandGrabInputs()
     {
         var numHandsGrabbing = 0;
@@ -38,5 +34,4 @@ public class PlayerController : MonoBehaviour {
         }
         return numHandsGrabbing;
     }
-
 }
