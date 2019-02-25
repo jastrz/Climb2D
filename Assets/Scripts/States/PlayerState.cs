@@ -45,23 +45,6 @@ public abstract class PlayerState {
 
     public virtual PlayerState HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            return StateMachine.PlayerStates.IdleAir;
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            return StateMachine.PlayerStates.IdleGround;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            return StateMachine.PlayerStates.Dead;
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            return StateMachine.PlayerStates.Handling;
-        }
-
         return this;
     }
 }
