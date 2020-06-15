@@ -1,25 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
-public class Hand : MonoBehaviour {
-
-    [SerializeField]
-    private float GrabbingBodyConnectionFrequency = 4.0f;
-    [SerializeField]
-    private float StandardBodyConnectionFrequency = 2.0f;
-    [SerializeField]
-    private Vector3 IdlePositionOffset;
-    [SerializeField]
-    private KeyCode handInputCode;
-    [SerializeField]
-    private Vector3 RotatingStartPosition = new Vector3(0,0,0);
-    [SerializeField]
-    private int direction;
-
-    private bool canGrab = false;
-    private bool _isGrabbing = false;
+public class Hand : MonoBehaviour 
+{
     public bool isGrabbing
     {
         get { return _isGrabbing; }
@@ -33,6 +16,14 @@ public class Hand : MonoBehaviour {
         private set { _GrabbedObject = value; }
     }
 
+    [SerializeField] private float GrabbingBodyConnectionFrequency = 4.0f;
+    [SerializeField] private float StandardBodyConnectionFrequency = 2.0f;
+    [SerializeField] private Vector3 IdlePositionOffset;
+    [SerializeField] private KeyCode handInputCode;
+    [SerializeField] private Vector3 RotatingStartPosition = new Vector3(0,0,0);
+    [SerializeField] private int direction;
+    private bool canGrab = false;
+    private bool _isGrabbing = false;
     private GameObject UnderlyingObject;
     private Rigidbody2D Rigidbody;
     private SpringJoint2D BodyConnection;
@@ -40,19 +31,18 @@ public class Hand : MonoBehaviour {
     private Vector3 collisionPoint;
     private StateMachine stateMachine;
 
-	public void Awake () 
+    public void Awake () 
     {
         UnderlyingObject = null;
         Rigidbody = GetComponent<Rigidbody2D>();
         BodyConnection = GetComponent<SpringJoint2D>();
         stateMachine = GetComponentInParent<StateMachine>();
     }
-	
-	public void Update () 
+    
+    public void Update () 
     {
         UpdateFreeJoint();
     }
-
 
     public bool HandleGrab()
     {

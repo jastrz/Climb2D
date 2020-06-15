@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -9,8 +8,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject RightHand;
 
     public Dictionary<string, GameObject> Hands;
-
-	public void Awake () 
+    
+    public void Awake () 
     {
         Hands = new Dictionary<string, GameObject>
         {

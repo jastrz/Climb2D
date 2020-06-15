@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Handling : PlayerState
 {
@@ -13,11 +11,6 @@ public class Handling : PlayerState
     {
         this.DisableHandSpringCollisions();
         base.OnStateEnter();
-    }
-
-    public override void OnStateExit()
-    {
-        base.OnStateExit();
     }
 
     public override PlayerState HandleInput()

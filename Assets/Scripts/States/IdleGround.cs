@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class IdleGround : PlayerState {
 
@@ -24,21 +22,10 @@ public class IdleGround : PlayerState {
         return base.HandleInput();
     }
 
-    public override PlayerState Update()
-    {
-        return base.Update();
-    }
-
-
     public override void OnStateEnter()
     {
         this.EnableHandsGroundState();
         base.OnStateEnter();
-    }
-
-    public override void OnStateExit()
-    {
-        base.OnStateExit();
     }
 
     private void EnableHandsGroundState()

@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     public static readonly int CircularBufferCapacity = 30;
     private Queue<float> cameraTargetVelocityMagnitudes = new Queue<float>(CircularBufferCapacity);
 
-    void Start()
+    public void Start()
     {
         camera = Camera.main;
         cameraTargetBody = cameraTarget.GetComponent<Rigidbody2D>();
@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
         StartCoroutine(LockCamera(.5f));
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         if (!cameraLocked)
         {

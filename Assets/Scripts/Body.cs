@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Body : MonoBehaviour 
 {
@@ -8,7 +6,7 @@ public class Body : MonoBehaviour
     private Vector3 _localPositionDelta;
     public Vector3 localPositionDelta
     {
-        get{ return _localPositionDelta; }
+        get { return _localPositionDelta; }
         private set { _localPositionDelta = value; }
     }
 

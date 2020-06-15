@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class IdleAir : PlayerState {
 
@@ -32,16 +30,6 @@ public class IdleAir : PlayerState {
         }
 
         return base.Update();
-    }
-
-    public override PlayerState HandleInput()
-    {
-        return base.HandleInput();
-    }
-
-    public override void OnStateExit()
-    {
-        base.OnStateExit();
     }
 
     private bool isAnyHandGrabbing()

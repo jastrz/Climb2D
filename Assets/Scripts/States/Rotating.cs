@@ -6,6 +6,7 @@ public class Rotating : PlayerState
 {
     public Hand rotatingHand;
     public Hand nonRotatingHand;
+
     private Trajectory trajectory;
     private Vector3 forceToAdd;
     private readonly float rotationJumpForceConstant = 15.0f;

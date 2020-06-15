@@ -1,14 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpReady : PlayerState {
-
-    private Coroutine TimeWindowForInput = null;
-
+public class JumpReady : PlayerState 
+{
     private delegate PlayerState TimeWindowResponseDelegate();
     private TimeWindowResponseDelegate TimeWindowResponse = null;
 
+    private Coroutine TimeWindowForInput = null;
     private float jumpForce = 1000.0f;
     private float timeWindowPeriod = 0.1f;
 

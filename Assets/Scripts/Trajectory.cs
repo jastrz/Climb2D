@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Trajectory : MonoBehaviour
 {
@@ -14,16 +12,10 @@ public class Trajectory : MonoBehaviour
     private int lengthOfLineRenderer = 10;
 
 
-    private void Awake()
+    public void Awake()
     {
         this.SetLineRenderer();
         lineRenderer.enabled = false;
-    }
-
-    private Vector3 CalculatePosition(Vector3 initialPosition, Vector3 initialVelocity, float elapsedTime)
-    {
-        var position = Physics.gravity * elapsedTime * elapsedTime * 0.5f + initialVelocity * elapsedTime + initialPosition;
-        return position;
     }
 
     public void DrawTrajectory(Vector3 initialPosition, Vector3 initialVelocity)
@@ -39,16 +31,22 @@ public class Trajectory : MonoBehaviour
         lineRenderer.SetPositions(points);
     }
 
+    public void DisableTrajectory()
+    {
+        lineRenderer.enabled = false;
+    }
+
+    private Vector3 CalculatePosition(Vector3 initialPosition, Vector3 initialVelocity, float elapsedTime)
+    {
+        var position = Physics.gravity * elapsedTime * elapsedTime * 0.5f + initialVelocity * elapsedTime + initialPosition;
+        return position;
+    }
+
     private void SetLineRenderer()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.widthMultiplier = .1f;
         lineRenderer.positionCount = trajectoryProjectilesCount;
-    }
-
-    public void DisableTrajectory()
-    {
-        lineRenderer.enabled = false;
     }
 
     private void SetArrow(ref Vector3[] points)
@@ -64,6 +62,5 @@ public class Trajectory : MonoBehaviour
 
         points[trajectoryProjectilesCount - 3] = Vector3.Lerp(arrowOrigin, arrowTarget, 0.999f - percentHead);
         points[trajectoryProjectilesCount - 2] = Vector3.Lerp(arrowOrigin, arrowTarget, 1 - percentHead);
-
     }
 }

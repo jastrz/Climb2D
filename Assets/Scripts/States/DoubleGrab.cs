@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DoubleGrab : PlayerState {
+﻿public class DoubleGrab : PlayerState {
 
     public override string GetName()
     {
@@ -17,10 +13,5 @@ public class DoubleGrab : PlayerState {
         }
 
         return base.Update();
-    }
-
-    public override PlayerState HandleInput()
-    {
-        return base.HandleInput();
     }
 }
