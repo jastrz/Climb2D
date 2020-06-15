@@ -42,7 +42,6 @@ public class Body : MonoBehaviour {
     public void Jump(Vector3 Force)
     {
         GetComponent<Rigidbody2D>().AddForce(Force, ForceMode2D.Impulse);
-        //Debug.Log(transform.localRotation.eulerAngles);
     }
 
     private void UpdateLocalPositionDelta()

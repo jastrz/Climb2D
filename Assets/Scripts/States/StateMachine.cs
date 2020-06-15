@@ -32,7 +32,6 @@ public class StateMachine : MonoBehaviour {
         }
     }
 
-    // Use this for initialization
     private void Start () {
 
         this.Target = transform.gameObject;
@@ -41,7 +40,6 @@ public class StateMachine : MonoBehaviour {
         this.currentState.OnStateEnter();
     }
 	
-	// Update is called once per frame
 	private void FixedUpdate () {
 
         nextState = currentState.Update();

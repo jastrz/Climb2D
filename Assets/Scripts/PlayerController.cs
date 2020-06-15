@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 
     public Dictionary<string, GameObject> Hands;
 
-	void Awake () {
+	public void Awake () {
 
 		Hands = new Dictionary<string, GameObject>
         {
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    // returns number of grabbing hands... naming sucks i know
+    // returns number of grabbing hands
     public int HandleHandGrabInputs()
     {
         var numHandsGrabbing = 0;

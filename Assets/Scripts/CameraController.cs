@@ -17,11 +17,10 @@ public class CameraController : MonoBehaviour
     private Rigidbody2D cameraTargetBody;
     private float cameraTargetAveregeVelocityMagnitude;
 
-    // circular buffer for storing velocity magnitudes - erm... funny
+    // circular buffer for storing velocity magnitudes
     public static readonly int CircularBufferCapacity = 30;
     private Queue<float> cameraTargetVelocityMagnitudes = new Queue<float>(CircularBufferCapacity);
 
-    // Use this for initialization
     void Start()
     {
         camera = Camera.main;
@@ -30,7 +29,6 @@ public class CameraController : MonoBehaviour
         StartCoroutine(LockCamera(.5f));
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (!cameraLocked)
