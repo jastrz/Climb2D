@@ -40,23 +40,95 @@ public class Hand : MonoBehaviour {
     private Vector3 collisionPoint;
     private StateMachine stateMachine;
 
-	// Use this for initialization
-	void Awake () {
-
+	public void Awake () 
+    {
         UnderlyingObject = null;
         Rigidbody = GetComponent<Rigidbody2D>();
         BodyConnection = GetComponent<SpringJoint2D>();
         stateMachine = GetComponentInParent<StateMachine>();
     }
 	
-	// Update is called once per frame
-	void Update () {
-
+	public void Update () 
+    {
         UpdateFreeJoint();
-
     }
 
-    #region private_methods
+
+    public bool HandleGrab()
+    {
+        if (Input.GetKey(handInputCode))
+        {
+            if (!this.isGrabbing && this.UnderlyingObject != null)
+            {
+                this.Grab(UnderlyingObject);
+            }
+            return true;
+        }
+
+        if (!Input.GetKey(handInputCode))
+        {
+            if (this.isGrabbing)
+            {
+                this.Release(this.GrabbedObject);
+                this.GrabbedObject = null;
+                this.isGrabbing = false;
+            }
+        }
+        return false;
+    }
+
+    public void SetAsDynamic()
+    {
+        this.StopRotation();
+        Rigidbody.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    public void SetAsKinematic()
+    {
+        this.StopRotation();
+        Rigidbody.bodyType = RigidbodyType2D.Kinematic;
+    }
+
+    public void SetAsIdle(Transform body)
+    {
+        this.SetAsKinematic();
+        this.transform.localPosition = body.localPosition + IdlePositionOffset;
+        this.transform.SetParent(body);
+        this.GetComponent<Joint2D>().enabled = false;
+    }
+
+    public void SetAsActive(Transform body)
+    {
+        this.SetAsDynamic();
+        this.transform.SetParent(body);
+        this.GetComponent<Joint2D>().enabled = true;
+    }
+
+    public void StartRotating(Transform body, bool isContinued)
+    {
+        this.SetAsKinematic();
+        StartCoroutine(RotateAround(body, isContinued));
+    }
+
+    public void DisableJointCollisions()
+    {
+        this.GetComponent<Joint2D>().enableCollision = false;
+    }
+
+    public void EnableJointCollisions()
+    {
+        this.GetComponent<Joint2D>().enableCollision = true;
+    }
+
+    public void Attach(GameObject obj)
+    {
+        this.Grab(obj);
+    }
+
+    public void BodyJointSetEnabled(bool enabled)
+    {
+        this.GetComponent<Joint2D>().enabled = enabled;
+    }
 
     private void UpdateFreeJoint()
     {
@@ -184,90 +256,7 @@ public class Hand : MonoBehaviour {
             time += Time.deltaTime;
             float phase = Mathf.Sin(time / period);
             transform.RotateAround(body.localPosition / 2.0f, Vector3.forward, (1 / period) * Time.deltaTime * angle * phase * direction);
-            //Debug.DrawLine(Vector3.zero, body.localPosition / 2);
             yield return null;
         }
     }
-
-    #endregion
-
-    #region public_methods
-
-    public bool HandleGrab()
-    {
-        if (Input.GetKey(handInputCode))
-        {
-            if (!this.isGrabbing && this.UnderlyingObject != null)
-            {
-                this.Grab(UnderlyingObject);
-            }
-            return true;
-        }
-
-        if(!Input.GetKey(handInputCode))
-        {
-            if (this.isGrabbing)
-            {
-                this.Release(this.GrabbedObject);
-                this.GrabbedObject = null;
-                this.isGrabbing = false;
-            }
-        }
-        return false;
-    }
-
-    public void SetAsDynamic()
-    {
-        this.StopRotation();
-        Rigidbody.bodyType = RigidbodyType2D.Dynamic;
-    }
-
-    public void SetAsKinematic()
-    {
-        this.StopRotation();
-        Rigidbody.bodyType = RigidbodyType2D.Kinematic;
-    }
-
-    public void SetAsIdle(Transform body)
-    {
-        this.SetAsKinematic();
-        this.transform.localPosition = body.localPosition + IdlePositionOffset;
-        this.transform.SetParent(body);
-        this.GetComponent<Joint2D>().enabled = false;
-    }
-
-    public void SetAsActive(Transform body)
-    {
-        this.SetAsDynamic();
-        this.transform.SetParent(body);
-        this.GetComponent<Joint2D>().enabled = true;
-    }
-
-    public void StartRotating(Transform body, bool isContinued)
-    {
-        this.SetAsKinematic();
-        StartCoroutine(RotateAround(body, isContinued));
-    }
-
-    public void DisableJointCollisions()
-    {
-        this.GetComponent<Joint2D>().enableCollision = false;
-    }
-
-    public void EnableJointCollisions()
-    {
-        this.GetComponent<Joint2D>().enableCollision = true;
-    }
-
-    public void Attach(GameObject obj)
-    {
-        this.Grab(obj);
-    }
-
-    public void BodyJointSetEnabled(bool enabled)
-    {
-        this.GetComponent<Joint2D>().enabled = enabled;
-    }
-
-    #endregion
 }

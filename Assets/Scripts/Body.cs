@@ -14,7 +14,7 @@ public class Body : MonoBehaviour
 
     private void Awake()
     {
-		lastLocalPosition = transform.localPosition;
+        lastLocalPosition = transform.localPosition;
     }
 
     private void FixedUpdate ()
