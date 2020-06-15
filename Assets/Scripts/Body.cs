@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Body : MonoBehaviour {
-
+public class Body : MonoBehaviour 
+{
+    private Vector3 lastLocalPosition;
     private Vector3 _localPositionDelta;
     public Vector3 localPositionDelta
     {
@@ -11,14 +12,13 @@ public class Body : MonoBehaviour {
         private set { _localPositionDelta = value; }
     }
 
-    private Vector3 lastLocalPosition;
-
-
-	private void Awake () {
+    private void Awake()
+    {
 		lastLocalPosition = transform.localPosition;
-	}
-	
-	private void FixedUpdate () {
+    }
+
+    private void FixedUpdate ()
+    {
        UpdateLocalPositionDelta();
     }
 

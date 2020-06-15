@@ -10,14 +10,13 @@ public class PlayerController : MonoBehaviour {
 
     public Dictionary<string, GameObject> Hands;
 
-	public void Awake () {
-
-		Hands = new Dictionary<string, GameObject>
+	public void Awake () 
+    {
+        Hands = new Dictionary<string, GameObject>
         {
             { "Left", LeftHand },
             { "Right", RightHand }
         };
-
     }
 
     // returns number of grabbing hands

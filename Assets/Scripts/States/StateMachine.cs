@@ -32,16 +32,16 @@ public class StateMachine : MonoBehaviour {
         }
     }
 
-    private void Start () {
-
+    private void Start ()
+    {
         this.Target = transform.gameObject;
         PlayerState.Target = this.transform.gameObject;
         this.currentState = PlayerStates.IdleAir;
         this.currentState.OnStateEnter();
     }
 	
-	private void FixedUpdate () {
-
+	private void FixedUpdate ()
+    {
         nextState = currentState.Update();
         if(nextState != currentState)
         {

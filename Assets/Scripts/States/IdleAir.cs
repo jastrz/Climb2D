@@ -92,7 +92,6 @@ public class IdleAir : PlayerState {
             Hand handController = hand.GetComponent<Hand>();
             handController.SetAsKinematic();
             handController.BodyJointSetEnabled(false);
-            //handController.transform.SetParent(TargetController.Body.transform);
         }
         handsLocked = true;
     }
